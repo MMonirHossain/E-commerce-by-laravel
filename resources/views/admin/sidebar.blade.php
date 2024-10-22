@@ -14,7 +14,7 @@
                 <li class="{{(Request::is('admin_category')?'active':'')}}"><a href="{{route('admin.category.get')}}"> <i class="fa fa-light fa-list"></i>Category </a></li>
                 <li class="{{(Request::is('admin_product')?'active':'')}}"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Products </a>
                   <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="{{route('admin.add_product')}}">Add Products</a></li>
+                    <li><a href="{{route('admin_product.create')}}">Add Products</a></li>
                     <li><a href="{{route('admin_product.index')}}">All Products</a></li>
                     <li><a href="#">Trashed Product</a></li>
                   </ul>

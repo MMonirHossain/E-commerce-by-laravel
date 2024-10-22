@@ -20,7 +20,7 @@
         <section class="no-padding-top no-padding-bottom">
             <div style="background-color: #2D3035; padding:15px; margin-bottom: 20px;">
                 <div class="container-fluid">
-                    <form action="" method="POST">
+                    <form action="{{route('admin_product.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         @if ($errors->any())
@@ -36,7 +36,7 @@
 
                         <div class="form-group">
                             <label>Description</label>
-                            <input type="text" name = "description" class="form-control">
+                            <textarea name="description"  class="form-control" id="" cols="30" rows="10"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -50,8 +50,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Category</label>
-                            <input type="text" name = "category_id" class="form-control">
+                            <label>Category</label><br>
+                            <select name="category_id" id="" class="form_control ms-5">
+                              <option value="">Choose category</option>
+                              @foreach ($categories as $category)
+                              <option value={{$category->id}}>{{$category->category_name}}</option>
+                              @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -59,7 +64,7 @@
                             <input type="text" name = "quantity" class="form-control">
                         </div>
 
-                        <input type="submit" value="Add Product" class="btn btn-primary">
+                        <input type="submit" value="Add Product" class="btn btn-primary mt-5">
                     </form> 
                 </div>
             </div>

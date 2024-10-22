@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ProductController extends Controller
 {
@@ -16,16 +17,13 @@ class ProductController extends Controller
         return view('admin.product.allproduct',compact('products'));
     }
 
-    public function addProduct(){
-        return view('admin.product.addproduct');
-    }
-
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.product.addproduct',compact('categories'));
     }
 
     /**
@@ -33,7 +31,26 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "title" => ['required','max:255'],
+            "description"=>['required'],
+            "price"=>['required','integer'],
+            "category_id"=>['required','integer'],
+            "quantity"=>['integer'],
+            "image"=>['required','image','max:1024'],
+        ]);
+        
+        $product = new Product;
+
+        $product->title = $request->title;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->category_id = $request->category_id;
+        $product->quantity = $request->quantity;
+        $product->image = $request->title;
+
+        $product->save();
+        return redirect()->route('admin_product.index');
     }
 
     /**
