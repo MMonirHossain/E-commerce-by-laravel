@@ -52,6 +52,7 @@ class AdminController extends Controller
     public function category_delete($id){
         $category = Category::find($id);
         $category->delete();
+        toastr()->timeOut(2000)->success('Category Deleted successfully');
         return redirect()->back();
     }
 }

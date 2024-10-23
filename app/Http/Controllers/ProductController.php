@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use File;
+use Flasher\Toastr\Prime\ToastrInterface;
 
 class ProductController extends Controller
 {
@@ -39,17 +41,21 @@ class ProductController extends Controller
             "quantity"=>['integer'],
             "image"=>['required','image','max:1024'],
         ]);
+
+        $filename = time()."_".$request->image->getClientOriginalName();
+        $filepath = $request->image->storeAs('/uploads',$filename);
         
-        $product = new Product;
+        $product = new Product();
 
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->quantity = $request->quantity;
-        $product->image = $request->title;
+        $product->image = $filepath;
 
         $product->save();
+        toastr()->timeOut(2000)->success('Product added successfully');
         return redirect()->route('admin_product.index');
     }
 
@@ -58,7 +64,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.product.viewproduct',compact('product'));
     }
 
     /**
@@ -82,6 +89,10 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product= Product::findOrFail($id);
+        File::delete(public_path('storage/'.$product->image));
+        $product->delete();
+        toastr()->timeOut(2000)->success('Product Deleted successfully');
+        return redirect()->back();
     }
 }

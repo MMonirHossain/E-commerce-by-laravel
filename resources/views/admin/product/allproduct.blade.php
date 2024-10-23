@@ -42,14 +42,21 @@
                     <tr>
                       <th scope="row">{{$product->id}}</th>
                       <td>{{$product->title}}</td>
-                      <td>{{$product->description}}</td>
-                      <td>{{$product->image}}</td>
+                      <td>{{ Str::words($product->description, 20, '...') }}</td>
+                      <td>
+                        <img src="{{asset('storage/'.$product->image)}}" alt="" width="100px" height="50px">
+                      </td>
                       <td>{{$product->price}}</td>
                       <td>{{$product->category_id}}</td>
                       <td>{{$product->quantity}}</td>
                       <td>
-                          <a href="#" class="btn btn-sm btn-info">Edit</a>
-                          <a href="#" class="btn btn-sm btn-danger">DELETE</a>
+                          <a href="{{route('admin_product.show',$product->id)}}" class="btn btn-sm btn-info">View</a><br>
+                          <a href="#" class="btn btn-sm btn-secondary">Edit</a><br>
+                          <form action="{{route('admin_product.destroy',$product->id)}}" method="POST" >
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
+                          </form>
                       </td>
                       
                     </tr>
