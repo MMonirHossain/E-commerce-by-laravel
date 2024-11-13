@@ -75,6 +75,9 @@
                     
                   </tbody>
                 </table>
+                <div style="display:flex;justify-content:center;align-items:center;margin-top:30px;">
+                 {{$products->links()}}
+                </div>
                 @endif
 
                 </div>
