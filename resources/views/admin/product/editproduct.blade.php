@@ -12,7 +12,7 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Add Product</h2>
+            <h2 class="h5 no-margin-bottom">Edit Product</h2>
           </div>
         </div>
 
@@ -20,9 +20,10 @@
         <section class="no-padding-top no-padding-bottom">
             <div style="background-color: #2D3035; padding:15px; margin-bottom: 20px;">
                 <div class="container-fluid">
-                    <form action="{{route('admin_product.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin_product.update',$product->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        
+                        @method('PUT')
+
                         @if ($errors->any())
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger">{{$error}}</div>
@@ -31,22 +32,23 @@
 
                         <div class="form-group">
                             <label>Title</label>
-                            <input type="text" name = "title" class="form-control">
+                            <input  value="{{$product->title}}" type="text" name = "title" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="description"  class="form-control" id="" cols="30" rows="10"></textarea>
+                            <textarea name="description"  class="form-control" id="" cols="30" rows="10">{{$product->description}}</textarea>
                         </div>
 
                         <div class="form-group">
-                            <label>Image</label>
+                            <img src="{{asset('storage/'.$product->image)}}" alt="" width="500px" height="300px"><br><br>
+                            <label>Choose Another Image</label>
                             <input type="file" name = "image" class="form-control">
                         </div>
                         
                         <div class="form-group">
                             <label>Price</label>
-                            <input type="text" name = "price" class="form-control">
+                            <input  value="{{$product->price}}" type="text" name = "price" class="form-control">
                         </div>
 
                         <div class="form-group">
@@ -54,17 +56,17 @@
                             <select name="category_id" id="" class="form_control ms-5">
                               <option value="">Choose category</option>
                               @foreach ($categories as $category)
-                              <option value={{$category->id}}>{{$category->category_name}}</option>
+                              <option {{$category->id==$product->category_id?'selected':''}} value={{$category->id}}>{{$category->category_name}}</option>
                               @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Quantity</label>
-                            <input type="text" name = "quantity" class="form-control">
+                            <input value="{{$product->quantity}}" type="text" name = "quantity" class="form-control">
                         </div>
 
-                        <input type="submit" value="Add Product" class="btn btn-primary mt-5">
+                        <input type="submit" value="Edit Product" class="btn btn-primary mt-5">
                     </form> 
                 </div>
             </div>

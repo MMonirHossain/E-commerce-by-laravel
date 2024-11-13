@@ -51,7 +51,7 @@
                       <td>{{$product->quantity}}</td>
                       <td>
                           <a href="{{route('admin_product.show',$product->id)}}" class="btn btn-sm btn-info">View</a><br>
-                          <a href="#" class="btn btn-sm btn-secondary">Edit</a><br>
+                          <a href="{{route('admin_product.edit',$product->id)}}" class="btn btn-sm btn-secondary">Edit</a><br>
                           <form action="{{route('admin_product.destroy',$product->id)}}" method="POST" >
                             @csrf
                             @method("DELETE")
