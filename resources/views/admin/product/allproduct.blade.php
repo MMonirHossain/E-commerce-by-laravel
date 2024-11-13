@@ -12,7 +12,7 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Product</h2>
+            <h2 class="h5 no-margin-bottom">All Product</h2>
           </div>
         </div>
 
@@ -22,7 +22,17 @@
         <section class="no-padding-bottom">
             <div style="background-color: #2D3035; padding:15px; margin-bottom: 20px;">
                 <div class="container-fluid">
-                  <h2 class="text-center">All Products</h2>
+                
+                <form class="form-inline my-2 my-lg-2" method="GET" action="{{route('admin_product.search')}}">
+                  @csrf
+                  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
+                @if($products->isEmpty())
+                  <h2>No Product Found!</h2>
+                @else
+
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -38,6 +48,7 @@
                   </thead>
                   <tbody>
                     
+
                     @foreach ($products as $product)
                     <tr>
                       <th scope="row">{{$product->id}}</th>
@@ -64,6 +75,8 @@
                     
                   </tbody>
                 </table>
+                @endif
+
                 </div>
             </div>
         </section>

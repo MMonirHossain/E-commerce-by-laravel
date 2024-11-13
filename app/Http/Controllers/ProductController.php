@@ -125,4 +125,10 @@ class ProductController extends Controller
         toastr()->timeOut(2000)->success('Product Deleted successfully');
         return redirect()->back();
     }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $products = Product::where('title','LIKE','%'.$search.'%')->get();
+        return view('admin.product.allproduct',compact('products'));
+    }
 }

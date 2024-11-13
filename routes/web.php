@@ -28,4 +28,5 @@ Route::get('/delete_category/{id}',[AdminController::class,'category_delete'])->
 Route::post('/admin_update_category/{id}',[AdminController::class,'category_update'])->middleware(['auth','admin'])->name('admin.category.update');
 
 
+Route::get('/admin_product/search',[ProductController::class,'search'])->middleware(['auth','admin'])->name('admin_product.search');
 Route::resource('/admin_product', ProductController::class)->middleware(['auth','admin']);
