@@ -34,28 +34,40 @@
             </li>
           </ul>
           <div class="user_option">
-            <a href="{{route('login')}}">
-              <i class="fa fa-user" aria-hidden="true"></i>
-              <span>
-                Login
-              </span>
-            </a>
+            @if(Route::has('login'))
+              @auth
+                <a href="">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                </a>
+                <form class="form-inline " style="padding-right:20px">
+                  <button class="btn nav_search-btn" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </button>
+                </form>
 
-            <a href="{{url('/register')}}">
-              <i class="fa fa-vcard" aria-hidden="true"></i>
-              <span>
-                Register
-              </span>
-            </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span><input type="submit" value="Logout" class="btn" style="padding:0.375rem 0.75rem 0.375rem 0rem"></span>                    
+                </form>
+              @else
+                <a href="{{route('login')}}">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+                  <span>
+                    Login
+                  </span>
+                </a>
 
-            <a href="">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
+                <a href="{{url('/register')}}">
+                  <i class="fa fa-vcard" aria-hidden="true"></i>
+                  <span>
+                    Register
+                  </span>
+                </a>
+                @endauth
+              @endif
+
+            
           </div>
         </div>
       </nav>
