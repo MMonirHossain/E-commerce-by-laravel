@@ -7,10 +7,10 @@ use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/singleproduct/{id}', [HomeController::class, 'show_one_product'])->name('single_product');
+Route::get('/allproduct', [HomeController::class, 'show_all_product'])->name('all_product');
 
-Route::get('/dashboard', function () {
-    return view('home.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

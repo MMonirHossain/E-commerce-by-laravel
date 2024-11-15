@@ -10,7 +10,7 @@
       @foreach($products as $product)
         <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="box">
-            <a href="">
+            <a href="{{route('single_product',$product->id)}}">
               <div class="img-box">
                 <img src="{{asset('storage/'.$product->image)}}" alt="">
               </div>
@@ -36,7 +36,7 @@
       @endforeach
       </div>
       <div class="btn-box">
-        <a href="">
+        <a href="{{route('all_product')}}">
           View All Products
         </a>
       </div>
