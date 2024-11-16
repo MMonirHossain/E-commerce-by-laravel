@@ -10,6 +10,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/singleproduct/{id}', [HomeController::class, 'show_one_product'])->name('single_product');
 Route::get('/allproduct', [HomeController::class, 'show_all_product'])->name('all_product');
+Route::get('/addcart/{id}', [HomeController::class, 'add_to_cart'])->middleware(['auth', 'verified'])->name('add_to_cart');
 
 
 Route::middleware('auth')->group(function () {

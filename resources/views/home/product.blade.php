@@ -30,6 +30,13 @@
                   New
                 </span>
               </div>
+              
+              <a href="{{route('add_to_cart',$product->id)}}">
+                <div class="allcart">                  
+                    <img src="{{asset('frontend/images/add_shopping_cart.svg')}}" alt="">                  
+                </div>
+              </a>
+
             </a>
           </div>
         </div>
