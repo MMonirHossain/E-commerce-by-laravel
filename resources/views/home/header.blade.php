@@ -36,15 +36,17 @@
           <div class="user_option">
             @if(Route::has('login'))
               @auth
-                <a href="">
+                <a href="{{route('mycart')}}">
                   <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                   [{{$cart_count}}]
                 </a>
+                @if(Route::is('all_product'))
                 <form class="form-inline " style="padding-right:20px">
                   <button class="btn nav_search-btn" type="submit">
                     <i class="fa fa-search" aria-hidden="true"></i>
                   </button>
                 </form>
+                @endif
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

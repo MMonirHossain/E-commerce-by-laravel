@@ -11,7 +11,7 @@ Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 
 Route::get('/singleproduct/{id}', [HomeController::class, 'show_one_product'])->name('single_product');
 Route::get('/allproduct', [HomeController::class, 'show_all_product'])->name('all_product');
 Route::get('/addcart/{id}', [HomeController::class, 'add_to_cart'])->middleware(['auth', 'verified'])->name('add_to_cart');
-
+Route::get('/mycart', [HomeController::class, 'mycart'])->middleware(['auth', 'verified'])->name('mycart');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -50,4 +50,16 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
+    public function mycart(){
+
+        if(Auth::id()){
+            $carts = Cart::where('user_id',Auth::user()->id)->get();
+            $cart_count = count($carts);
+        }else{
+            $cart_count='';
+        }
+
+        return view('home.mycart',compact('cart_count','carts'));
+    }
+
 }
