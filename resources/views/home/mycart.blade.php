@@ -67,7 +67,7 @@
                   <?php $total_price +=$cart->product->price; ?>
                 </div>
                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                  <a href="#" class="text-danger">
+                  <a href="{{route('deletecart',$cart->id)}}" class="text-danger">
                   <i class="fa fa-trash fa-lg" style="widht:16px;height: 16px;" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -95,7 +95,7 @@
             <div class="form-outline flex-fill">
             <p class="lead fw-normal mb-2">Discount</p>
             </div>
-            <p class="lead fw-bold mb-2">$45</p>
+            <p class="lead fw-bold mb-2">$0</p>
           </div>
 
           <div class="card-body p-4 d-flex flex-row">
@@ -107,11 +107,37 @@
         </div>
 
 
-        <div class="card">
-          <div class="card-body">
-            <button  type="button" class="btn btn-block btn-lg" style="background-color:#dc3545;color:white;">Proceed to Pay</button>
+        <form action="{{route('confirmorder')}}" method="POST">
+        @csrf
+        
+          <div class="card mb-4">          
+            <div class="card-body p-4 ">
+              <p class="lead  mb-2">Receiver Information</p>
+              <div class="form-group">
+                <label for="">Receiver Name</label>
+                <input name="name" type="text" class="form-control" aria-describedby="emailHelp" placeholder="" value="{{Auth::user()->name}}">
+                <small class="form-text text-muted">Mention who will receive the parcel.</small>
+              </div>
+              <div class="form-group">
+                <label for="">Receiver Phone</label>
+                <input name="phone" type="text" class="form-control" aria-describedby="emailHelp" placeholder="" value="{{Auth::user()->phone}}">
+                <small class="form-text text-muted">Please give an active phone number so that the delivery man can contuct with you</small>
+              </div>
+              <div class="form-group">
+                <label for="">Receiver Address</label>
+                <textarea name="address" class="form-control"  rows="2">{{Auth::user()->address}}</textarea>
+                <small class="form-text text-muted">Pickup Point from where you will receive the product.</small>
+              </div>
+            </div>     
           </div>
-        </div>
+
+
+          <div class="card">
+            <div class="card-body">
+              <button  type="submit" class="btn btn-block btn-lg" style="background-color:#dc3545;color:white;">Place Order</button>
+            </div>
+          </div>
+        </form>
 
       </div>
     </div>

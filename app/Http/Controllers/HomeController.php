@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -60,6 +61,44 @@ class HomeController extends Controller
         }
 
         return view('home.mycart',compact('cart_count','carts'));
+    }
+
+    public function delete_cart($id){
+
+        $cart = Cart::findOrFail($id);
+        $cart->delete();
+
+        if(Auth::id()){
+            $carts = Cart::where('user_id',Auth::user()->id)->get();
+            $cart_count = count($carts);
+        }else{
+            $cart_count='';
+        }
+
+        return view('home.mycart',compact('cart_count','carts'));
+    }
+
+    public function confirm_order(Request $request){
+        $name = $request->name;
+        $address = $request->address;
+        $phone = $request->phone;
+        $userid = Auth::user()->id;
+        $carts = Cart::where('user_id',$userid)->get();
+
+        foreach($carts as $cart){
+            $order =  new Order();
+            $order->name = $name;
+            $order->reciver_address = $address;
+            $order->phone = $phone;
+            $order->user_id = $userid;
+            $order->product_id = $cart->product_id;
+            $order->save();
+            $cart->delete();
+        }
+
+        toastr()->timeOut(2000)->success('Order Placed Successfully');
+        return redirect()->back();
+
     }
 
 }
